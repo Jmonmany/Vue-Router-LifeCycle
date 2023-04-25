@@ -1,8 +1,8 @@
 <template>
-  <a v-if="isExternalLink" :href="link.to" target="_blank">{{ link.name }}</a>
+  <a v-if="isExternalLink" :href="link.to" target="_blank" class="normal-link">{{ link.name }}</a>
   <!-- target="_blank" means that the link will open in a new tab -->
   <router-link v-else :to="link.to" v-slot="{ href, isActive }"
-    ><a :href="href" :class="isActive ? 'is-active' : 'normal-link'">{{ link.name }}</a></router-link
+    custom><a :href="href" :class="isActive ? 'is-active' : 'normal-link'">{{ link.name }}</a></router-link
   >
 </template>
 

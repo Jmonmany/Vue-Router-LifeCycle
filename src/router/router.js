@@ -4,14 +4,14 @@ import Router from "vue-router";
 const routes = [
   {
     path: "/",
-    redirect: "/about",
+    redirect: "/home",
   },
   {
-    path: "/list",
-    name: "List",
+    path: "/home",
+    name: "home",
     component: () =>
       import(
-        /* webpackChunkName: "Page" */ "@/modules/module-A/pages/ListPage"
+        /* webpackChunkName: "ListPage" */ "@/modules/module-A/pages/ListPage"
       ),
   },
   {
@@ -19,7 +19,7 @@ const routes = [
     name: "About",
     component: () =>
       import(
-        /* webpackChunkName: "Page" */ "@/modules/module-A/pages/AboutPage"
+        /* webpackChunkName: "AboutPage" */ "@/modules/module-A/pages/AboutPage"
       ),
   },
   {
@@ -29,7 +29,7 @@ const routes = [
     // we can change the path and will still work
     component: () =>
       import(
-        /* webpackChunkName: "Page" */ "@/modules/module-A/pages/DetailsPage"
+        /* webpackChunkName: "Page" */ "@/modules/module-A/pages/PokemonPage"
       ),
     props: (route) => {
       const { id } = route.params;
