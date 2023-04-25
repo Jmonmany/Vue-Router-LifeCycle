@@ -4,43 +4,86 @@ import Router from "vue-router";
 const routes = [
   {
     path: "/",
-    redirect: "/home",
+    redirect: "/pokemon",
   },
   {
-    path: "/home",
-    name: "home",
+    path: "/pokemon",
     component: () =>
       import(
-        /* webpackChunkName: "ListPage" */ "@/modules/module-A/pages/ListPage"
+        /* webpackChunkName: "PokemonLayout" */ "@/modules/module-A/layouts/PokemonLayout"
       ),
+    children: [
+      {
+        path: "home",
+        name: "pokemon-home",
+        component: () =>
+          import(
+            /* webpackChunkName: "ListPage" */ "@/modules/module-A/pages/ListPage"
+          ),
+      },
+      {
+        path: "about",
+        name: "pokemon-about",
+        component: () =>
+          import(
+            /* webpackChunkName: "AboutPage" */ "@/modules/module-A/pages/AboutPage"
+          ),
+      },
+      {
+        path: "pokemon/:id",
+        name: "pokemon-id",
+        // since we are working with the name of the route on Navbar.vue :to,
+        // we can change the path and will still work
+        component: () =>
+          import(
+            /* webpackChunkName: "PokemonPage" */ "@/modules/module-A/pages/PokemonPage"
+          ),
+        props: (route) => {
+          const { id } = route.params;
+          return isNaN(+id) ? { id: 1 } : { id: +id };
+        },
+      },
+      {
+        path: "",
+        redirect: { name: "pokemon-about"}
+      },
+    ],
   },
+  // {
+  //   path: "/home",
+  //   name: "home",
+  //   component: () =>
+  //     import(
+  //       /* webpackChunkName: "ListPage" */ "@/modules/module-A/pages/ListPage"
+  //     ),
+  // },
+  // {
+  //   path: "/about",
+  //   name: "About",
+  //   component: () =>
+  //     import(
+  //       /* webpackChunkName: "AboutPage" */ "@/modules/module-A/pages/AboutPage"
+  //     ),
+  // },
+  // {
+  //   path: "/pokemon/:id",
+  //   name: "pokemon-id",
+  //   // since we are working with the name of the route on Navbar.vue :to,
+  //   // we can change the path and will still work
+  //   component: () =>
+  //     import(
+  //       /* webpackChunkName: "PokemonPage" */ "@/modules/module-A/pages/PokemonPage"
+  //     ),
+  //   props: (route) => {
+  //     const { id } = route.params;
+  //     return isNaN(+id) ? { id: 1 } : { id: +id };
+  //   },
+  // },
   {
-    path: "/about",
-    name: "About",
+    path: "/:pathMatch(.*)*",
     component: () =>
       import(
-        /* webpackChunkName: "AboutPage" */ "@/modules/module-A/pages/AboutPage"
-      ),
-  },
-  {
-    path: "/pokemon/:id",
-    name: "Details",
-    // since we are working with the name of the route on Navbar.vue :to, 
-    // we can change the path and will still work
-    component: () =>
-      import(
-        /* webpackChunkName: "Page" */ "@/modules/module-A/pages/PokemonPage"
-      ),
-    props: (route) => {
-      const { id } = route.params;
-      return isNaN(+id) ? { id: 1 } : { id: +id };
-    },
-  },
-  {
-    path: "*",
-    component: () =>
-      import(
-        /* webpackChunkName: "Page" */ "@/modules/shared/pages/NoPage.vue"
+        /* webpackChunkName: "NoPage" */ "@/modules/shared/pages/NoPage.vue"
       ),
   },
 ];
