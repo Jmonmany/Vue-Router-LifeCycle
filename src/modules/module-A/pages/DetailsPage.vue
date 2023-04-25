@@ -3,6 +3,7 @@
     <h1>Details Page</h1>
     <!-- <span>#{{ $route.params.id }}</span> -->
     <span>#{{ id }}</span>
+    <p>Modify the url number to change pokemon</p>
     <div v-if="pokemon" class="pokemon">
       <img :src="pokemon.sprites.front_default" :alt="pokemon.name" />
       <span>{{ pokemon.name }}</span>

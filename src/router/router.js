@@ -4,6 +4,11 @@ import Router from "vue-router";
 const routes = [
   {
     path: "/",
+    redirect: "/about",
+  },
+  {
+    path: "/list",
+    name: "List",
     component: () =>
       import(
         /* webpackChunkName: "Page" */ "@/modules/module-A/pages/ListPage"
@@ -11,14 +16,17 @@ const routes = [
   },
   {
     path: "/about",
+    name: "About",
     component: () =>
       import(
         /* webpackChunkName: "Page" */ "@/modules/module-A/pages/AboutPage"
       ),
   },
   {
-    path: "/:id",
+    path: "/pokemon/:id",
     name: "Details",
+    // since we are working with the name of the route on Navbar.vue :to, 
+    // we can change the path and will still work
     component: () =>
       import(
         /* webpackChunkName: "Page" */ "@/modules/module-A/pages/DetailsPage"

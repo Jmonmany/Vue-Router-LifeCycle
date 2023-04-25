@@ -1,11 +1,11 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <template>
   <div>
-    <router-link to="/">List</router-link>
+    <router-link :to="{ name: 'List' }">List</router-link>
     <router-link :to="{ name: 'Details', params: { id: 85 } }"
       >Details</router-link
     >
-    <router-link to="/about">About</router-link>
+    <router-link :to="{ name: 'About' }">About</router-link>
   </div>
 </template>
 
