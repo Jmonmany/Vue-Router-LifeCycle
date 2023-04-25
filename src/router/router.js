@@ -18,10 +18,15 @@ const routes = [
   },
   {
     path: "/:id",
+    name: "Details",
     component: () =>
       import(
         /* webpackChunkName: "Page" */ "@/modules/module-A/pages/DetailsPage"
       ),
+    props: (route) => {
+      const { id } = route.params;
+      return isNaN(+id) ? { id: 1 } : { id: +id };
+    },
   },
   {
     path: "*",
