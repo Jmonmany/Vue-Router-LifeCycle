@@ -1,5 +1,6 @@
 import Vue from "vue";
 import Router from "vue-router";
+import isAuthenticatedGuard from "./auth-guard";
 
 const routes = [
   {
@@ -45,7 +46,7 @@ const routes = [
       },
       {
         path: "",
-        redirect: { name: "pokemon-about"}
+        redirect: { name: "pokemon-about" },
       },
     ],
   },
@@ -80,6 +81,37 @@ const routes = [
   //   },
   // },
   {
+    path: "/dbz",
+    beforeEnter: isAuthenticatedGuard,
+    // beforeEnter means that the guard will be executed before the component is loaded
+    component: () =>
+      import(
+        /* webpackChunkName: "PokemonPage" */ "@/modules/module-B/layouts/DragonBallLayout"
+      ),
+    children: [
+      {
+        path: "characters",
+        name: "dbz-characters",
+        component: () =>
+          import(
+            /* webpackChunkName: "PokemonPage" */ "@/modules/module-B/pages/CharactersPage"
+          ),
+      },
+      {
+        path: "about",
+        name: "dbz-about",
+        component: () =>
+          import(
+            /*webpackChunkName: "PokemonPage" */ "@/modules/module-B/pages/AboutPage"
+          ),
+      },
+      {
+        path: "",
+        redirect: { name: "dbz-characters" },
+      },
+    ],
+  },
+  {
     path: "/:pathMatch(.*)*",
     component: () =>
       import(
@@ -93,5 +125,39 @@ Vue.use(Router);
 let router = new Router({
   routes: routes,
 });
+
+//Guard Global - Sync
+
+// router.beforeEach((to, from, next) => {
+//   // Guard random global
+//   const random = Math.random() * 100;
+//   if (random > 50) {
+//     console.log("liberado por el beforeEach guard: ", random);
+//     next();
+//   } else {
+//     console.log("bloqueado por el beforeEach guard: ", random);
+//     next({ name: "pokemon-home" });
+//   }
+// });
+
+// Guard Global - Async
+
+// const canAccess = () => {
+//   return new Promise((resolve) => {
+//     const random = Math.random() * 100;
+//     if (random > 50) {
+//       console.log("authenticated: ", random);
+//       resolve(true);
+//     } else {
+//       console.log("not authenticated: ", random);
+//       resolve(false);
+//     }
+//   });
+// };
+
+// router.beforeEach(async (to, from, next) => {
+//   const authorized = await canAccess();
+//   authorized ? next() : next({ name: "pokemon-home" });
+// });
 
 export default router;

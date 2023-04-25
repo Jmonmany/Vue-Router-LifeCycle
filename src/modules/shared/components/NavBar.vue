@@ -6,26 +6,33 @@
       >Details</router-link
     >
     <router-link :to="{ name: 'About' }">About</router-link> -->
-    <CustomLink :to="'/'" v-for="link in links" :key="link.to" :link="link"></CustomLink>
+    <CustomLink
+      :to="'/'"
+      v-for="link in links"
+      :key="link.to"
+      :link="link"
+    ></CustomLink>
   </div>
 </template>
 <script>
-import { defineAsyncComponent } from 'vue'
+import { defineAsyncComponent } from "vue";
 export default {
-    data() {
-        return {
-            links: [
-                {to: '/home', name: 'Pokemons'},
-                {to: '/pokemon/50', name: 'Por ID'},
-                {to: '/about', name: 'About'},
-                {to: 'https://google.com', name: 'Google'}
-            ]
-        }
-    },
-    components: {
-        CustomLink: defineAsyncComponent(() => import('./CustomLink.vue'))
-    }
-}
+  data() {
+    return {
+      links: [
+        { to: "pokemon-home", name: "Pokemons" },
+        { to: "pokemon-id", name: "Por ID", id: 50 },
+        { to: "pokemon-about", name: "About Pokemons" },
+        { to: "dbz-characters", name: "DBZ Characters" },
+        { to: "dbz-about", name: "About DBZ" },
+        { to: "https://google.com", name: "Google" },
+      ],
+    };
+  },
+  components: {
+    CustomLink: defineAsyncComponent(() => import("./CustomLink.vue")),
+  },
+};
 </script>
 <style scoped>
 div {
