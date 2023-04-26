@@ -7,14 +7,10 @@
 </template>
 
 <script>
-import { defineAsyncComponent } from "vue";
-
 export default {
   name: "App",
   components: {
-    NavBar: defineAsyncComponent(() =>
-      import("@/modules/shared/components/NavBar")
-    ),
+    NavBar: () => import("@/modules/shared/components/NavBar"),
   },
 };
 </script>

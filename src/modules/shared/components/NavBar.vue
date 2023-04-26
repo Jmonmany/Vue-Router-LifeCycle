@@ -15,7 +15,6 @@
   </div>
 </template>
 <script>
-import { defineAsyncComponent } from "vue";
 export default {
   data() {
     return {
@@ -30,7 +29,7 @@ export default {
     };
   },
   components: {
-    CustomLink: defineAsyncComponent(() => import("./CustomLink.vue")),
+    CustomLink: () => import("./CustomLink.vue"),
   },
 };
 </script>
